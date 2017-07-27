@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>导航</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+<label>用户名<input type="text" id="username"></label><br>
+<label>密码<input type="text" id="password"></label><br>
+<button onclick="test()">测试</button>
+<br>
+<div id="result" style="color:red;"></div>
+<script>
+    $("#username").val("wd");
+    $("#password").val("123");
+    function test() {
+        $.ajax({
+            url: "http://121.41.66.68/job/login",
+            type: "post",
+            data: JSON.stringify({
+                username: $("#username").val(),
+                password: $("#password").val()
+            }),
+            crossDomain: true,
+            dataType: "json",
+            xhrFields: {
+                withCredentials: false
+            },
+            headers: {
+                "content-type": "application/json"
+            },
+        }).done(function (result) {
+            console.log(result);
+            $("#result").html(result.msg ? result.msg : result.username);
+        })
+    }
+</script>
+
+
+</body>
+</html>

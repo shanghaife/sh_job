@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>导航</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!--<script src="./ajax.js"></script>-->
+</head>
+<body>
+<p>什么都不填为默认请求默认排序的前20条。错误的数据会被服务器端重置为默认值</p>
+<p>keywords暂时不予使用（实际上服务器是可以实现的，主要是我懒得写）</p>
+<label>academic<input type="text" id="academic"></label><br>
+<label>area<input type="text" id="area"></label><br>
+<label>minYear<input type="text" id="minYear"></label><br>
+<label>financing<input type="text" id="financing"></label><br>
+<label>sorting<input type="text" id="sorting"></label><br>
+<label>minWage<input type="text" id="minWage"></label><br>
+<label>maxWage<input type="text" id="maxWage"></label><br>
+<label>page<input type="text" id="page"></label><br>
+<button onclick="test()">测试</button>
+<br>
+<textarea id="result" style="width: 1000px;height: 500px;"></textarea>
+<script>
+    //    $("#area").val("北京");
+    //    $("#minYear").val("0");
+    //    $("#academic").val("0");
+    //    $("#financing").val("0");
+    //    $("#sorting").val("0");
+    //    $("#minWage").val("1");
+    //    $("#maxWage").val("99999");
+    //    $("#page").val("1");
+
+    function test() {
+        $.ajax({
+            url: "http://121.41.66.68/job/getJobList",
+            type: "get",
+            data: {
+                keywords: [],
+                area: $("#area").val(),
+                minYear: $("#minYear").val(),
+                academic: $("#academic").val(),
+                financing: $("#financing").val(),
+                sorting: $("#sorting").val(),
+                minWage: $("#minWage").val(),
+                maxWage: $("#maxWage").val(),
+                page: $("#page").val(),
+            },
+            dataType: "jsonp",
+            jsonp: "callback",
+            jsonpCallback: "selectJobList",
+        }).done(function (result) {
+            console.log(result);
+            $("#result").val(JSON.stringify(result.list, undefined, 4));
+        })
+    }
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>导航</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!--<script src="./ajax.js"></script>-->
+</head>
+<body>
+<label>id<input type="text" id="id"></label><br>
+<button onclick="submit()">提交</button>
+<br>
+<div>查询结果：</div>
+<textarea id="result" style="width: 1000px;height: 500px;"></textarea>
+<script>
+    $("#id").val(10);
+    function submit() {
+        $.ajax({
+            url: "http://121.41.66.68/job/getJobInfo",
+            type: "get",
+            data: {
+                id: $("#id").val()
+            },
+            dataType: "jsonp",
+            jsonp: "callback",
+            jsonpCallback: "selectJob",
+        }).done(function (result) {
+            console.log(result);
+            if (result.code === "200") {
+                $("#result").val(JSON.stringify(result.data, undefined, 4));
+            } else {
+                $("#result").html(result.msg)
+            }
+        })
+    }
+</script>
+
+
+</body>
+</html>

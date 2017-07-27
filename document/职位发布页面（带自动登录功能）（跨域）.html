@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>导航</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!--<script src="./ajax.js"></script>-->
+</head>
+<body>
+<div id="log"></div>
+<div>——————————————</div>
+<label>关键字<input type="text" id="keywords"></label><br>
+<label>区域<input type="text" id="area"></label><br>
+<label>最小年限<input type="text" id="minYear"></label><br>
+<label>学历<input type="text" id="academic"></label><br>
+<label>融资程度<input type="text" id="financing"></label><br>
+<label>最低工资<input type="text" id="minWage"></label><br>
+<label>最高工资<input type="text" id="maxWage"></label><br>
+<label>公司名<input type="text" id="companyName"></label><br>
+<label>职位类型<input type="text" id="jobType"></label><br>
+<label>职位描述<br><textarea type="text" id="description" style="width: 1000px;height: 500px;"></textarea></label><br>
+<button onclick="submit()">提交</button>
+<br>
+<div id="result"></div>
+<script>
+    $("#username").val("wd");
+    $("#password").val("123");
+    function login() {
+        $.ajax({
+            url: "http://121.41.66.68/job/login",
+            type: "post",
+            data: JSON.stringify({
+                username: "wd",
+                password: "123"
+            }),
+            crossDomain: true,
+            dataType: "json",
+            xhrFields: {
+                withCredentials: true
+            },
+            headers: {
+                "content-type": "application/json"
+            },
+        }).done(function (result) {
+            if (result.code === "200") {
+                $("#log").html("登录成功，用户名:" + result.username);
+            } else {
+                $("#log").html(result.msg)
+            }
+        })
+    }
+    login();
+
+    $("#keywords").val("五险一金");
+    $("#area").val("杭州");
+    $("#minYear").val("0");
+    $("#academic").val("0");
+    $("#financing").val("0");
+    $("#minWage").val("1000");
+    $("#maxWage").val("10000");
+    $("#companyName").val("一个公司");
+    $("#jobType").val("1");
+    $("#description").val("<script>一个公司职位描述职位描述职位描述一个公司职位描述职位描述职位描述一个公司职位描述职位描述职位描述一个公司职位描述职位描述职位描述一个公司职位描述职位描述职位描述一个公司职位描述职位描述职位描述");
+    function submit() {
+        $.ajax({
+            url: "http://121.41.66.68/job/publishJob",
+            type: "post",
+            data: JSON.stringify({
+                keywords: [$("#keywords").val(), "测试用第二"],
+                area: $("#area").val(),
+                minYear: $("#minYear").val(),
+                academic: $("#academic").val(),
+                financing: $("#financing").val(),
+                minWage: $("#minWage").val(),
+                maxWage: $("#maxWage").val(),
+                companyName: $("#companyName").val(),
+                jobType: $("#jobType").val(),
+                description: $("#description").val(),
+            }),
+            crossDomain: true,
+            dataType: "json",
+            xhrFields: {
+                withCredentials: true
+            },
+            headers: {
+                "content-type": "application/json"
+            },
+        }).done(function (result) {
+            console.log(result);
+            if (result.code === "200") {
+                $("#result").html("发布成功！");
+            } else {
+                $("#result").html(result.msg)
+            }
+        })
+    }
+</script>
+
+
+</body>
+</html>
