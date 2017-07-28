@@ -34,6 +34,7 @@ http://www.jianwangsan.cn/job
 - duosanglee
 - q2017756
 - woden0415
+- 358xiaoyihezemin
 
 > 如何参与开发
 
