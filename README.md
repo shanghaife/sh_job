@@ -1,57 +1,51 @@
 # sh-job
 
-> Project demo:
+>   线上项目地址
 
 http://www.jianwangsan.cn/job
 
-> Feature plan:
+> 目标人群
 
-1. 完善条件选择组件；
-2. 补完移动端内容；
-3. 增加关于专业技能的相关东西；
-4. 提交时增加更多字段。例如：联系电话，联系邮箱，发招聘人属于HR还是猎头或者其他；
-5. 增加求职者求职部分：具体来说，一个简化简历，然后自定义求职意向，别人可以查看；
-6. 增加访问者数量统计；
-7. 微信小程序；
+​	招聘平台目前仅供JS前端开发群和hr群内部人员使用，当招聘信息数据量和流程成熟之后，考虑面试公众开发
 
-> a job-find website work for shanghai web front-end
+> 平台性质
 
-- Components
-  - Header(顶部导航区域)
-  - Listview(列表区)
-  - Pagination(分页组件)
-  - Search(搜索)
-  - Selector(筛选)
+​	平台现在放置群友个人的服务上，初级压力不大，尚可支撑。到后期就需要重新购买服务器，届时会考虑到放置广告或者其它商业手段维持。
 
-- page
-  - HomePage (主页)
-  - Jddetail(JD详情)
-  - Landpage(登陆页面)
-  - Publishpage(JD发布页面)
+> 已完成开发任务
 
-## Build Setup
+​	发布页、详情页、登陆页、查看页、移动度
 
-``` bash
-# install dependencies
-npm install
+> 待开发功能
 
-# serve with hot reload at localhost:8080
-npm run dev
+	1. 优化筛选组件
+	2. 移动端显示美化
+	3. 增加技能相关
+	4. JD发布／详情页面信息增加
+	5. 添加JD访问量
+	6. 微信小程序
 
-# build for production with minification
-npm run build
+> 当前开发者
 
-# build for production and view the bundle analyzer report
-npm run build --report
-```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-
-### 感谢以下群内的小伙伴百忙之中抽出时间参与项目的开发(排名不分先后)
+排名不分先后
 
 - CracKerMe
 - qq20004604
 - duosanglee
-- AppleZun
 - q2017756
 - woden0415
+
+> 如何参与开发
+
+​	Fork项目后 pull request 时 请添加具体的描述信息，我们会将您的github账号添加进平台贡献人员名单
+
+> 组件开发者的约定:
+
+1. 基础组件(如toast、button、select等)最好使用文件夹结构,并保持 可读性、独立性、可移植性
+2. 以index.js对外暴露组件 保证调用方式为 from ‘toast’ 而不是‘toast／toast’
+3. 提供readMe文档
+4. 考虑项目复杂度设计
+
+
+
+更多建议或者讨论请直接在issues中提出，我们会尽快回复
