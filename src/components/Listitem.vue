@@ -207,7 +207,7 @@
     },
     data () {
       return {
-        developer: '何泽民@359816324.com'
+        developer: '何泽民359816324@qq.com'
       }
     },
     methods: {

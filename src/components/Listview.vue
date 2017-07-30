@@ -1,32 +1,11 @@
 <template>
   <div class="list-part">
-    <listitem :item="item" :key="item.id" v-for="item in items"></listitem>
+    <slot></slot>
   </div>
 </template>
 <script>
-  import listitem from './listitem'
-
   export default {
-    name: 'listview',
-    data () {
-      return {
-        items: []
-      }
-    },
-    created () {
-      this.refreshList()
-    },
-    methods: {
-      // 列表刷新，参数是刷新条件，type: object
-      refreshList (data) {
-        this.http.getJobList(data).then(result => {
-          this.items = result.data.list
-        })
-      }
-    },
-    components: {
-      listitem
-    }
+    name: 'listview'
   }
 </script>
 <style scoped lang="less" type="text/less">
