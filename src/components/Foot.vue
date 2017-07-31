@@ -7,7 +7,7 @@
 <template>
   <div class="footer">
     <div class="main-table">
-      <p class="title">本项目github链接：<a href="https://github.com/CracKerMe/sh-job">https://github.com/CracKerMe/sh-job</a></p>
+      <p class="title">本项目github链接：<a href="https://github.com/shanghaife/sh_job">https://github.com/shanghaife/sh_job</a></p>
       <p class="title">本页开发者列表（感谢那些做出贡献的人们）：</p>
       <p>
         <template v-if="developers.length>0">
