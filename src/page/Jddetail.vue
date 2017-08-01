@@ -8,7 +8,7 @@
         <span class="right-part">{{info.area}}</span>
       </div>
       <div class="job-item">
-        <p class="left-part">公司名／companyName</p>
+        <p class="left-part">公司名／companyname</p>
         <span class="right-part">{{info.companyName}}</span>
       </div>
       <div class="job-item">
