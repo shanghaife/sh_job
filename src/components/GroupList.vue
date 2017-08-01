@@ -2,7 +2,7 @@
 * Created by 鬼谷中妖 on 2017/7/26.
 * QQ: 562550212
 * PC端用于显示各群群号
-* updated 2017/08/01 删除了中高级群及管理群群号，把开发者添加进来
+* updated by 王冬 2017/08/01 删除了中高级群及管理群群号，把开发者添加进来
 */
 <template>
   <div class="sh-sidebar groups">

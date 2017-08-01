@@ -46,7 +46,7 @@
     name: 'foot',
     data () {
       return {
-        developer: '零零水(20004604@qq.com，页脚)'
+        developer: '零零水(20004604@qq.com)'
       }
     },
     computed: {
