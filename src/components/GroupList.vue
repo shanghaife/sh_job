@@ -2,6 +2,7 @@
 * Created by 鬼谷中妖 on 2017/7/26.
 * QQ: 562550212
 * PC端用于显示各群群号
+* updated by 王冬 2017/08/01 删除了中高级群及管理群群号，把开发者添加进来
 */
 <template>
   <div class="sh-sidebar groups">
@@ -14,7 +15,7 @@
   </div>
 </template>
 
-<style lang="less" scoped>
+<style lang="less" scoped type="text/less">
   .sh-sidebar {
     position: fixed;
     top: 155px;
@@ -55,7 +56,7 @@
         groups: [
           {
             'groupID': '492107297',
-            'groupName': 'JS前端开发跳板'
+            'groupName': 'JS前端开发跳板群'
           },
           {
             'groupID': '389875212',
@@ -66,18 +67,15 @@
             'groupName': 'JS初级前端开发2群'
           },
           {
-            'groupID': '348090425',
+            'groupID': '请先加入跳板群',
             'groupName': 'JS中级前端开发群'
           },
           {
-            'groupID': '159758989',
+            'groupID': '请先加入跳板群',
             'groupName': 'JS高级前端开发群'
-          },
-          {
-            'groupID': '330827856',
-            'groupName': 'JS前端开发管理群'
           }
-        ]
+        ],
+        developer: '鬼谷中妖(woden0415@163.com)'
       }
     }
   }

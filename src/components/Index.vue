@@ -21,6 +21,11 @@
 
   export default {
     name: 'Index',
+    data () {
+      return {
+        developer: '零零水(20004604@qq.com)'
+      }
+    },
     components: {
       Theader,
       Tfooter,
