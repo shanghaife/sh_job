@@ -2,7 +2,7 @@
 <template>
   <div class="search">
     <input class="keyword" type="text" autocomplete="off" placeholder="搜索职位／公司／地区" v-model="keyword">
-    <input class="adminSearch" type="button" value="搜索" v-on:click="search">
+    <input class="adminSearch" type="button" value="搜索" @click="search">
   </div>
 </template>
 <script>
@@ -10,45 +10,18 @@
     name: 'search',
     data: function () {
       return {
-        keyword: '',
-        searchData: {
-          keywords: '',
-          area: '',
-          minYear: '',
-          academic: '',
-          financing: '',
-          sorting: '',
-          minWage: '',
-          maxWage: '',
-          page: '1'
-        }
+        keyword: ''
       }
     },
     methods: {
       search: function () {
-        // 修改默认查询数据
-        this.searchData = {
-          keywords: this.searchData.keywords,
-          area: '',
-          minYear: '',
-          academic: '',
-          financing: '',
-          sorting: '',
-          minWage: '',
-          maxWage: '',
-          page: '1'
-        }
-        this.http.getJobList(this.searchData).then(result => {
-          if (result.data) {
-            if (result.data.code) {
-              // @TODO 渲染Listview视图
-              console.log(result.data.list)
-            } else {
-              // @TODO 提示
-              console.log('没有数据')
-            }
+        this.$store.commit('removeSearchCondition', {key: 'keywords'})
+        this.$store.commit('addSearchCondition',
+          {
+            key: 'keywords',
+            value: String(this.keyword)
           }
-        })
+        )
       }
     }
   }
