@@ -50,6 +50,7 @@ const store = new Vuex.Store({
     }
   },
   actions: {},
+  strict: process.env.NODE_ENV === 'development', // 开发者模式下启用严格模式
   modules: {
     user
   }

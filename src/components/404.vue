@@ -31,7 +31,9 @@
 <script>
   export default {
     data () {
-      return {}
+      return {
+        developer: '零零水(20004604@qq.com)'
+      }
     },
     methods: {
       goHomepage () {
