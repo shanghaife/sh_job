@@ -23,21 +23,21 @@
           <span class="title">工作经验：</span>
           <a href="javascript:;" :class="{'active': item.active}" v-for="(item, index) of obj['minYear']" :key="index" @click="activeChange(obj['minYear'], item)">
             {{item.name}}
-            <i class="delete" v-if="index"></i>
+            <i class="delete" v-if="index" @click.stop="activeChange(obj['minYear'], obj['minYear'][0])"></i>
           </a>
         </li>
         <li class="multi-chosen">
           <span class="title">学历要求：</span>
           <a href="javascript:;" :class="{'active': item.active}" :key="index" v-for="(item, index) of obj['academic']" @click="activeChange(obj['academic'], item)">
             {{item.name}}
-            <i class="delete" v-if="index"></i>
+            <i class="delete" v-if="index" @click.stop="activeChange(obj['academic'], obj['academic'][0])"></i>
           </a>
         </li>
         <li class="multi-chosen">
           <span class="title">融资阶段：</span>
           <a href="javascript:;" :class="{'active': item.active}" :key="index" v-for="(item, index) of obj['financing']" @click="activeChange(obj['financing'], item)">
             {{item.name}}
-            <i class="delete" v-if="index"></i>
+            <i class="delete" v-if="index" @click.stop="activeChange(obj['financing'], obj['financing'][0])"></i>
           </a>
         </li>
       </div>
@@ -51,7 +51,7 @@
             <i></i>
             <ul>
               <li>
-                <a href="javascript:;" v-for="(item, index) of obj['money']" :key="index" @click="activeChange(obj['money'], item)">
+                <a href="javascript:;" v-for="(item, index) of obj['money']" :key="index" @click.stop="activeChange(obj['money'], item)">
                   {{item.name}}
                 </a>
               </li>
@@ -222,13 +222,13 @@ export default {
       return this.obj['money'].filter(val => {
         return val.active
       })[0]['name']
-    },
-    // 所选工作性质
-    selectPropertyType () {
-      return this.obj['property'].filter(val => {
-        return val.active
-      })[0]['name']
     }
+    // 所选工作性质
+    // selectPropertyType () {
+    //   return this.obj['property'].filter(val => {
+    //     return val.active
+    //   })[0]['name']
+    // }
   },
   methods: {
     // 点击select框
@@ -253,7 +253,6 @@ export default {
       }, this)
       this.$set(item, 'active', true)
 
-      this.getSelector()
       // 取消select框焦点
       this.selectActive = ''
     },
@@ -264,7 +263,6 @@ export default {
         let filterActive = this.obj[val].filter(filterVal => {
           return filterVal['active']
         })[0]['limit']
-        console.log(val)
         if (val !== 'money') {
           result[val] = filterActive
         } else {
@@ -272,10 +270,19 @@ export default {
           result['maxWage'] = filterActive[1]
         }
       }, this)
-      return result
+      this.$store.commit('getSelector', data)
+    }
+  },
+  watch: {
+    obj: {
+      handler: function () {
+        this.getSelector()
+      },
+      deep: true
     }
   },
   created () {
+    this.getSelector()
     /** 2017/07/24  零零水
      *  移除这里的列表拉取（不应该放在这里）
      */
@@ -476,7 +483,7 @@ ul.filter-wrapper .multi-chosen a.active .delete {
 
 /*!common/components/jquery-ui-custom/jquery-ui.custom.css*/
 
-@charset "utf-8";
+/* @charset "utf-8"; */
 
 
 /*! Includes: jquery.ui.core.css, jquery.ui.autocomplete.css, jquery.ui.menu.css */

@@ -35,7 +35,8 @@
    */
   let jobList = {
     state: {
-      searchCondition: {}
+      searchCondition: {},
+      selector: null
     },
     mutations: {
       addSearchCondition (state, data) {
@@ -49,6 +50,9 @@
       },
       updateSearchCondition (state, data) {
         state.searchCondition[data.key] = data.value
+      },
+      setSelector(state, data){
+        state.selector = data
       }
     }
   }
@@ -66,6 +70,9 @@
     computed: {
       searchCondition () {
         return this.$store.state.jobList.searchCondition
+      },
+      selector(){
+        return this.$store.state.jobList.selector
       }
     },
     components: {
