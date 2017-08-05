@@ -51,7 +51,7 @@
       updateSearchCondition (state, data) {
         state.searchCondition[data.key] = data.value
       },
-      setSelector(state, data){
+      setSelector (state, data) {
         state.selector = data
       }
     }
@@ -71,7 +71,7 @@
       searchCondition () {
         return this.$store.state.jobList.searchCondition
       },
-      selector(){
+      selector () {
         return this.$store.state.jobList.selector
       }
     },

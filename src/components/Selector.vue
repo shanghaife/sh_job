@@ -270,7 +270,7 @@ export default {
           result['maxWage'] = filterActive[1]
         }
       }, this)
-      this.$store.commit('getSelector', data)
+//      this.$store.commit('getSelector', data)
     }
   },
   watch: {
