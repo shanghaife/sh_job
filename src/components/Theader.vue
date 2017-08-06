@@ -17,6 +17,7 @@
       <div class="topbar-content">
         <ul class="fl">
           <li><a>目前不提供登出功能，请清除缓存</a></li>
+          <li><a>网站访问量：<em>{{visitTime}}</em></a></li>
         </ul>
         <ul class="fr">
           <template v-if="!$store.state.user.isLogin">
@@ -58,6 +59,7 @@
     data () {
       return {
         amILogin: false,
+        visitTime: 0,
         developer: '鬼谷中妖 woden0415@163.com'
       }
     },
@@ -75,6 +77,16 @@
       goMobile () {
         this.$router.push('/m')
       }
+    },
+    mounted () {
+      // 显示网站访问量
+      this.http.getVisits().then(result => {
+        if (result.data.code === 200) {
+          this.visitTime = result.data.account
+        } else {
+          this.visitTime = result.data.error
+        }
+      })
     }
   }
 </script>
