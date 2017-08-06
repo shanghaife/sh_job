@@ -1,4 +1,10 @@
-/* 我是筛选组件 *／
+/*
+* 我是筛选组件
+* Created by 李志升 on 2017/7/20.
+* QQ: 757592499
+* weChat: 757592499
+* updated 2017/08/06 李志升
+*/
 <template>
   <div>
     <ul id="filterBox" class="filter-wrapper">
@@ -22,21 +28,21 @@
         <li class="multi-chosen">
           <span class="title">工作经验：</span>
           <a href="javascript:;" :class="{'active': item.active}" v-for="(item, index) of obj['minYear']" :key="index" @click="activeChange(obj['minYear'], item)">
-            {{item.name}}
+            {{item.limit | filter_minYear}}
             <i class="delete" v-if="index" @click.stop="activeChange(obj['minYear'], obj['minYear'][0])"></i>
           </a>
         </li>
         <li class="multi-chosen">
           <span class="title">学历要求：</span>
           <a href="javascript:;" :class="{'active': item.active}" :key="index" v-for="(item, index) of obj['academic']" @click="activeChange(obj['academic'], item)">
-            {{item.name}}
+            {{item.limit | filter_academic}}
             <i class="delete" v-if="index" @click.stop="activeChange(obj['academic'], obj['academic'][0])"></i>
           </a>
         </li>
         <li class="multi-chosen">
           <span class="title">融资阶段：</span>
           <a href="javascript:;" :class="{'active': item.active}" :key="index" v-for="(item, index) of obj['financing']" @click="activeChange(obj['financing'], item)">
-            {{item.name}}
+            {{item.limit | filter_financing}}
             <i class="delete" v-if="index" @click.stop="activeChange(obj['financing'], obj['financing'][0])"></i>
           </a>
         </li>
@@ -46,7 +52,7 @@
       <li class="wrapper">
         <div class="item salary selectUI" :class="{'active': selectActive == 'money'}">
           <span class="title">月薪：</span>
-          <div class="selectUI-text text" @click.stop="clickSelect('money')">
+          <div class="selectUI-text text" @click.stop="setSelectActive('money')" @mouseleave.stop="setSelectActive('')">
             <span>{{selectMoneyType}}</span>
             <i></i>
             <ul>
@@ -60,7 +66,8 @@
         </div>
         <div class="item type selectUI" :class="{'active': selectActive == 'property'}" style="display: none;">
           <span class="title">工作性质：</span>
-          <div class="selectUI-text value text" @click.stop="clickSelect('property')">
+          <div class="selectUI-text value text" 
+          @click.stop="setSelectActive('property')" @mouseleave.stop="setSelectActive('')">
             <span>{selectPropertyType}</span>
             <i></i>
             <ul>
@@ -85,78 +92,64 @@ export default {
         minYear: [
           {
             name: '不限',
-            limit: '0',
+            limit: 0,
             active: true
           },
           {
             name: '最少1年',
-            limit: '1'
+            limit: 1
           },
           {
             name: '最少2年',
-            limit: '2'
+            limit: 2
           }
         ],
         academic: [
           {
-            limit: '0',
-            name: '不限',
+            limit: 0,
             active: true
           },
           {
-            limit: '1',
-            name: '大专'
+            limit: 1
           },
           {
-            limit: '2',
-            name: '本科'
+            limit: 2
           },
           {
-            limit: '3',
-            name: '硕士'
+            limit: 3
           },
           {
-            limit: '4',
-            name: '博士'
+            limit: 4
           }
         ],
         financing: [
           {
-            limit: '0',
-            name: '不限',
+            limit: 0,
             active: true
           },
           {
-            limit: '1',
-            name: '不需要融资'
+            limit: 1
           },
           {
-            limit: '2',
-            name: '未融资'
+            limit: 2
           },
           {
-            limit: '3',
-            name: '天使轮'
+            limit: 3
           },
           {
-            limit: '4',
-            name: 'A轮'
+            limit: 4
           },
           {
-            limit: '5',
-            name: 'B轮'
+            limit: 5
           },
           {
-            limit: '6',
-            name: 'C轮'
+            limit: 6
           },
           {
-            limit: '7',
-            name: 'D轮及以上'
+            limit: 7
           },
           {
-            limit: '8',
-            name: '上市'
+            limit: 8
           }
         ],
         // property: [
@@ -232,15 +225,7 @@ export default {
   },
   methods: {
     // 点击select框
-    clickSelect (type) {
-      // type 所点select框种类
-      // item 所点的数据
-
-      // this.activeChange(this.obj[type], item)
-      if (type === this.selectActive) {
-        this.selectActive = ''
-        return
-      }
+    setSelectActive (type) {
       this.selectActive = type
     },
     // 焦点变化
@@ -264,13 +249,24 @@ export default {
           return filterVal['active']
         })[0]['limit']
         if (val !== 'money') {
-          result[val] = filterActive
+          result[val] = String(filterActive)
         } else {
-          result['minWage'] = filterActive[0]
-          result['maxWage'] = filterActive[1]
+          result['minWage'] = String(filterActive[0])
+          result['maxWage'] = String(filterActive[1])
         }
       }, this)
-      this.$store.commit('getSelector', data)
+
+      this.$store.commit('removeSearchCondition',
+        {
+          key: 'selector'
+        }
+      )
+      this.$store.commit('addSearchCondition',
+        {
+          key: 'selector',
+          value: result
+        }
+      )
     }
   },
   watch: {
