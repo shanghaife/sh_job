@@ -31,24 +31,41 @@
    * 注册：this.$store.commit('addSearchCondition',{key: 'page', value: String(this.page)})
    * 销毁：this.$store.commit('removeSearchCondition', {key: 'page'})
    * 更新：this.$store.commit('updateSearchCondition',{key: 'page', value: String(this.page)})
-   * 获取：this.$store.state.jobList.searchCondition
+   * 获取（最终取值）：this.$store.getters.searchCondition
    */
   let jobList = {
     state: {
-      searchCondition: {}
+      searchCondition: {},
+      selector: null
+    },
+    getters: {
+      searchCondition (state) {
+        let result = {}
+        let data = state.searchCondition
+        Object.keys(data).forEach(key => {
+          if (data[key] !== undefined) {
+            result[key] = data[key]
+          }
+        })
+        return result
+      }
     },
     mutations: {
+      // 单个添加属性
       addSearchCondition (state, data) {
         if (state.searchCondition[data.key] !== undefined) {
-          throw new Error('searchCondition has key: ' + data.key + ', you can\'t registry it')
+          throw new Error(`searchCondition has key: "${data.key}" , you can't registry it`)
         }
         state.searchCondition[data.key] = data.value
       },
       removeSearchCondition (state, data) {
-        delete state.searchCondition[data.key]
+        state.searchCondition[data.key] = undefined
       },
       updateSearchCondition (state, data) {
         state.searchCondition[data.key] = data.value
+      },
+      setSelector (state, data) {
+        state.selector = data
       }
     }
   }
@@ -66,6 +83,9 @@
     computed: {
       searchCondition () {
         return this.$store.state.jobList.searchCondition
+      },
+      selector () {
+        return this.$store.state.jobList.selector
       }
     },
     components: {
@@ -86,19 +106,24 @@
         this.isLoading = true
         this.http.getJobList(data).then(result => {
           this.isLoading = false
-          console.log(result.data)
+          // console.log(result.data)
           this.items = result.data.list
           this.page = result.data.page
           this.maxPage = result.data.maxPage
         })
       },
       test () {
-        console.log(this.$store)
+        console.log(this.$store.getters.searchCondition)
       }
     },
     created () {
+      // 注册动态store
       this.$store.registerModule('jobList', jobList)
       this.refreshList()
+    },
+    destroyed () {
+      // 销毁动态store
+      this.$store.unregisterModule('jobList', jobList)
     }
   }
 

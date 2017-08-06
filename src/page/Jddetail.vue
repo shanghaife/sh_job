@@ -38,6 +38,12 @@
         <p class="left-part">职位描述／requirement</p>
         <div class="textarea">{{info.description}}</div>
       </div>
+      <div class="job-item">
+        <p class="left-part">一句话广告</p>
+        <div class="textarea"><span ref="forAd">{{forAd}}</span><br>
+          <button @click="copyToClipBoard">点击可以复制发送本广告到群里</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -50,7 +56,7 @@
     data () {
       return {
         info: {
-          keywords: '',
+          keywords: [],
           area: '',
           minYear: '0',
           academic: '0',
@@ -67,6 +73,11 @@
     computed: {
       keywords () {
         return this.info.keywords.join('， ')
+      },
+      forAd () {
+        return `${this.info.area}地区的【${this.info.companyName}】招${this.info.minYear > 0 ? this.info.minYear + '年前端' : '前端（无年限要求）'}，
+薪资水平${this.info.minWage}至${this.info.maxWage}，
+有意者请查看链接：${window.location.href}`
       }
     },
     methods: {
@@ -113,6 +124,10 @@
             this.info = result.data.data
           }
         })
+      },
+      // 复制一句话广告到剪切板
+      copyToClipBoard () {
+        this.$copy.copy(this.forAd)
       }
     }
   }
@@ -148,6 +163,7 @@
   .job-item {
     min-height: 46px;
     margin-bottom: 12px;
+    position: relative;
   }
 
   .left-part {
@@ -173,14 +189,15 @@
   }
 
   .textarea {
-    width: 340px;
+    width: 600px;
     height: auto;
     padding: 12px;
+    line-height: 20px;
     overflow-y: auto;
     box-sizing: border-box;
     display: inline-block;
     resize: none;
-    margin-top: 10px;
     white-space: pre-wrap;
+    color: #333;
   }
 </style>

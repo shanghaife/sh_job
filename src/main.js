@@ -7,12 +7,14 @@ import 'common/less/config.less'
 import service from './plugin/service'
 import filter from './plugin/filter'
 import http from './api/index'
+import copy from './plugin/copy'
+import store from './store'
+
 Vue.config.productionTip = false
 Vue.use(service)
 Vue.use(filter)
 Vue.use(http)
-
-import store from './store'
+Vue.use(copy)
 
 /* eslint-disable no-new */
 new Vue({
@@ -20,5 +22,5 @@ new Vue({
   store,
   router,
   template: '<App/>',
-  components: { App }
+  components: {App}
 })
