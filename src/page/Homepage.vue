@@ -35,8 +35,7 @@
    */
   let jobList = {
     state: {
-      searchCondition: {},
-      selector: null
+      searchCondition: {}
     },
     getters: {
       searchCondition (state) {
@@ -63,9 +62,6 @@
       },
       updateSearchCondition (state, data) {
         state.searchCondition[data.key] = data.value
-      },
-      setSelector (state, data) {
-        state.selector = data
       }
     }
   }
@@ -83,9 +79,6 @@
     computed: {
       searchCondition () {
         return this.$store.state.jobList.searchCondition
-      },
-      selector () {
-        return this.$store.state.jobList.selector
       }
     },
     components: {
