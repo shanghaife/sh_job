@@ -1,3 +1,6 @@
+/** 首页列表
+* update by 张帅(3120921953@qq.com) 2017/08/06 添加几个显示字段
+*/
 <template>
   <!-- <div>我是JD发布页面</div> -->
   <div class="publish">
@@ -18,6 +21,18 @@
       <div class="job-item">
         <p class="left-part">职位类型／jobType</p>
         <span class="right-part">{{info.jobType | filter_jobType}}</span>
+      </div>
+      <div class="job-item">
+        <p class="left-part">发布时间／ctime</p>
+        <span class="right-part">{{info.ctime | filter_time}}</span>
+      </div>
+      <div class="job-item">
+        <p class="left-part">更新时间／updateTime</p>
+        <span class="right-part">{{info.updateTime | filter_time}}</span>
+      </div>
+      <div class="job-item">
+        <p class="left-part">访问次数／visitCount</p>
+        <span class="right-part">{{info.visitCount}}</span>
       </div>
       <p class="publish-item"><span>2&nbsp;</span>职位要求</p>
       <div class="job-item">
