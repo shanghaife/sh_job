@@ -1,3 +1,6 @@
+/** 首页列表
+* update by 张帅(3120921953@qq.com) 2017/08/06 添加几个显示字段
+*/
 <template>
   <!-- <div>我是JD发布页面</div> -->
   <div class="publish">
