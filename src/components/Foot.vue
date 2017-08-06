@@ -8,6 +8,7 @@
   <div class="footer">
     <div class="main-table">
       <p class="title">本项目github链接：<a href="https://github.com/shanghaife/sh_job">https://github.com/shanghaife/sh_job</a></p>
+      <p class="title">本站访问次数：<strong style="font-weight: bold;color: #333;">{{visitTime}}</strong></p>
       <p class="title">本页开发者列表（感谢那些做出贡献的人们）：</p>
       <p>
         <template v-if="developers.length>0">
@@ -46,7 +47,8 @@
     name: 'foot',
     data () {
       return {
-        developer: '零零水(20004604@qq.com)'
+        developer: '零零水(20004604@qq.com)',
+        visitTime: 0
       }
     },
     computed: {
@@ -54,6 +56,16 @@
       developers () {
         return [...this.$store.state.developersList]
       }
+    },
+    mounted () {
+      // 显示网站访问量
+      this.http.getVisits().then(result => {
+        if (result.data.code === 200) {
+          this.visitTime = result.data.account
+        } else {
+          this.visitTime = result.data.error
+        }
+      })
     },
     methods: {}
   }
