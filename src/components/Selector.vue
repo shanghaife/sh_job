@@ -27,37 +27,51 @@
         </div>
         <li class="multi-chosen">
           <span class="title">工作经验：</span>
-          <a href="javascript:;" :class="{'active': item.active}" v-for="(item, index) of obj['minYear']" :key="index" @click="activeChange(obj['minYear'], item)">
-            {{item.limit | filter_minYear}}
-            <i class="delete" v-if="index" @click.stop="activeChange(obj['minYear'], obj['minYear'][0])"></i>
+          <a href="javascript:;" :class="{'active': item.active}" v-for="(item, index) of obj['minYear']" :key="index" @click="activeChange(obj['minYear'], item, 'minYear')">
+            {{item.apiData | filter_minYear}}
+            <i class="delete" v-if="index" @click.stop="activeChange(obj['minYear'], obj['minYear'][0], 'minYear')"></i>
           </a>
         </li>
         <li class="multi-chosen">
           <span class="title">学历要求：</span>
-          <a href="javascript:;" :class="{'active': item.active}" :key="index" v-for="(item, index) of obj['academic']" @click="activeChange(obj['academic'], item)">
-            {{item.limit | filter_academic}}
-            <i class="delete" v-if="index" @click.stop="activeChange(obj['academic'], obj['academic'][0])"></i>
+          <a href="javascript:;" :class="{'active': item.active}" :key="index" v-for="(item, index) of obj['academic']" @click="activeChange(obj['academic'], item, 'academic')">
+            {{item.apiData | filter_academic}}
+            <i class="delete" v-if="index" @click.stop="activeChange(obj['academic'], obj['academic'][0], 'academic')"></i>
           </a>
         </li>
         <li class="multi-chosen">
           <span class="title">融资阶段：</span>
-          <a href="javascript:;" :class="{'active': item.active}" :key="index" v-for="(item, index) of obj['financing']" @click="activeChange(obj['financing'], item)">
-            {{item.limit | filter_financing}}
-            <i class="delete" v-if="index" @click.stop="activeChange(obj['financing'], obj['financing'][0])"></i>
+          <a href="javascript:;" :class="{'active': item.active}" :key="index" v-for="(item, index) of obj['financing']" @click="activeChange(obj['financing'], item, 'financing')">
+            {{item.apiData | filter_financing}}
+            <i class="delete" v-if="index" @click.stop="activeChange(obj['financing'], obj['financing'][0], 'financing')"></i>
           </a>
         </li>
       </div>
     </ul>
     <ul class="order" id="order">
       <li class="wrapper">
-        <div class="item salary selectUI" :class="{'active': selectActive == 'money'}">
-          <span class="title">月薪：</span>
-          <div class="selectUI-text text" @click.stop="setSelectActive('money')" @mouseleave.stop="setSelectActive('')">
-            <span>{{selectMoneyType}}</span>
+        <div class="item salary selectUI" :class="{'active': selectActive == 'minWage'}">
+          <span class="title">最低工资要求（月薪）：</span>
+          <div class="selectUI-text text" @click.stop="setSelectActive('minWage')" @mouseleave.stop="setSelectActive('')">
+            <span>{{selectMinWageType}}</span>
             <i></i>
             <ul>
               <li>
-                <a href="javascript:;" v-for="(item, index) of obj['money']" :key="index" @click.stop="activeChange(obj['money'], item)">
+                <a href="javascript:;" v-for="(item, index) of obj['minWage']" :key="index" @click.stop="activeChange(obj['minWage'], item, 'minWage')">
+                  {{item.name}}
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="item salary selectUI" :class="{'active': selectActive == 'maxWage'}">
+          <span class="title">最高工资要求（月薪）：</span>
+          <div class="selectUI-text text" @click.stop="setSelectActive('maxWage')" @mouseleave.stop="setSelectActive('')">
+            <span>{{selectMaxWageType}}</span>
+            <i></i>
+            <ul>
+              <li>
+                <a href="javascript:;" v-for="(item, index) of obj['maxWage']" :key="index" @click.stop="activeChange(obj['maxWage'], item, 'maxWage')">
                   {{item.name}}
                 </a>
               </li>
@@ -72,7 +86,7 @@
             <i></i>
             <ul>
               <li>
-                <a href="javascript:;" v-for="(item, index) of obj['property']" :key="index" @click.stop="activeChange(obj['property'], item)">
+                <a href="javascript:;" v-for="(item, index) of obj['property']" :key="index" @click.stop="activeChange(obj['property'], item, 'property')">
                   {{item.name}}
                 </a>
               </li>
@@ -91,65 +105,62 @@ export default {
       obj: {
         minYear: [
           {
-            name: '不限',
-            limit: 0,
+            apiData: 0,
             active: true
           },
           {
-            name: '最少1年',
-            limit: 1
+            apiData: 1
           },
           {
-            name: '最少2年',
-            limit: 2
+            apiData: 2
           }
         ],
         academic: [
           {
-            limit: 0,
+            apiData: 0,
             active: true
           },
           {
-            limit: 1
+            apiData: 1
           },
           {
-            limit: 2
+            apiData: 2
           },
           {
-            limit: 3
+            apiData: 3
           },
           {
-            limit: 4
+            apiData: 4
           }
         ],
         financing: [
           {
-            limit: 0,
+            apiData: 0,
             active: true
           },
           {
-            limit: 1
+            apiData: 1
           },
           {
-            limit: 2
+            apiData: 2
           },
           {
-            limit: 3
+            apiData: 3
           },
           {
-            limit: 4
+            apiData: 4
           },
           {
-            limit: 5
+            apiData: 5
           },
           {
-            limit: 6
+            apiData: 6
           },
           {
-            limit: 7
+            apiData: 7
           },
           {
-            limit: 8
+            apiData: 8
           }
         ],
         // property: [
@@ -173,46 +184,51 @@ export default {
         //     name: '其他'
         //   }
         // ],
-        money: [
+        minWage: [
           {
-            name: '不限',
+            name: '无限制',
             active: true,
-            limit: [0, 0]
-          },
+            apiData: 0
+          }
+        ],
+        maxWage: [
           {
-            name: '2k以下',
-            limit: [1, 1999]
-          },
-          {
-            name: '2k-5k',
-            limit: [2000, 4999]
-          },
-          {
-            name: '5k-10k',
-            limit: [5000, 9999]
-          },
-          {
-            name: '10k-15k',
-            limit: [10000, 14999]
-          },
-          {
-            name: '25k-50k',
-            limit: [24999, 49999]
-          },
-          {
-            name: '50k以上',
-            limit: [50000, 0]
+            name: '无限制',
+            active: true,
+            apiData: 0
           }
         ]
       },
+      salarArr: [3000, 5000, 8000, 10000, 15000, 20000, 25000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 99999],
+      developer: '李志升 duosanglee@gmail.com',
       // select框焦点
       selectActive: ''
     }
   },
   computed: {
-    // 所选月薪
-    selectMoneyType () {
-      return this.obj['money'].filter(val => {
+    selectorApi () {
+      // 因为有些功能未完成 先把那些功能提供的数据写上
+      let result = {
+        sorting: '0',
+        area: ''
+      }
+      return Object.keys(this.obj).reduce((itemA, key) => {
+        let filterActive = this.obj[key].filter(filterVal => {
+          return filterVal['active']
+        })[0]['apiData']
+        itemA[key] = String(filterActive)
+        return itemA
+      }, result)
+    },
+    // 所选最少月薪
+    selectMinWageType () {
+      return this.obj['minWage'].filter(val => {
+        return val.active
+      })[0]['name']
+    },
+    // 所选最多月薪
+    selectMaxWageType () {
+      return this.obj['maxWage'].filter(val => {
         return val.active
       })[0]['name']
     }
@@ -229,56 +245,60 @@ export default {
       this.selectActive = type
     },
     // 焦点变化
-    activeChange (itemArr, item) {
+    activeChange (itemArr, item, key) {
       // item 所点的列表数据
       // itemArr item所属的对象
+      // key 所点击的属性
 
       itemArr.forEach((val, index, arr) => {
         this.$set(val, 'active', false)
       }, this)
       this.$set(item, 'active', true)
 
+      this.$store.commit('updateSearchCondition',
+        {
+          key,
+          value: String(item['apiData'])
+        }
+      )
+
       // 取消select框焦点
       this.selectActive = ''
-    },
-    getSelector () {
-      let result = {}
-      Object.keys(this.obj).forEach((val, index, arr) => {
-        // 因为用户所选择的月薪是区间 但是相应的接口又是单独的 所以额外处理
-        let filterActive = this.obj[val].filter(filterVal => {
-          return filterVal['active']
-        })[0]['limit']
-        if (val !== 'money') {
-          result[val] = String(filterActive)
-        } else {
-          result['minWage'] = String(filterActive[0])
-          result['maxWage'] = String(filterActive[1])
-        }
-      }, this)
-
+    }
+  },
+  destroyed () {
+    // 销毁
+    Object.keys(this.selectorApi).forEach(val => {
       this.$store.commit('removeSearchCondition',
         {
-          key: 'selector'
+          key: val
         }
       )
-      this.$store.commit('addSearchCondition',
-        {
-          key: 'selector',
-          value: result
-        }
-      )
-    }
-  },
-  watch: {
-    obj: {
-      handler: function () {
-        this.getSelector()
-      },
-      deep: true
-    }
+    })
   },
   created () {
-    this.getSelector()
+    // 工资数据初始化
+    this.salarArr.forEach((val, index, arr) => {
+      let number = Math.round(val / 1000) + 'k'
+      this.obj.minWage.push({
+        apiData: val,
+        name: number
+      })
+      this.obj.maxWage.push({
+        apiData: val,
+        name: number
+      })
+    }, this)
+
+    // 注册
+    Object.keys(this.selectorApi).forEach(val => {
+      this.$store.commit('addSearchCondition',
+        {
+          key: val,
+          value: String(this.selectorApi[val])
+        }
+      )
+    })
     /** 2017/07/24  零零水
      *  移除这里的列表拉取（不应该放在这里）
      */
