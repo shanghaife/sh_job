@@ -244,6 +244,26 @@ export default {
     setSelectActive (type) {
       this.selectActive = type
     },
+    compareWage (key) {
+      let obj = this.obj
+      let ActiveMinWage = obj['minWage'].filter(filterVal => {
+        return filterVal['active']
+      })[0]
+      let ActiveMaxWage = obj['maxWage'].filter(filterVal => {
+        return filterVal['active']
+      })[0]
+      if (ActiveMinWage['apiData'] * ActiveMaxWage['apiData'] !== 0) {
+        if (key === 'minWage') {
+          if (ActiveMinWage['apiData'] > ActiveMaxWage['apiData']) {
+            this.activeChange(obj['maxWage'], obj['maxWage'][0], 'maxWage')
+          }
+        } else if (key === 'maxWage') {
+          if (ActiveMaxWage['apiData'] < ActiveMinWage['apiData']) {
+            this.activeChange(obj['minWage'], obj['minWage'][0], 'minWage')
+          }
+        }
+      }
+    },
     // 焦点变化
     activeChange (itemArr, item, key) {
       // item 所点的列表数据
@@ -262,6 +282,9 @@ export default {
         }
       )
 
+      // this.compareWage(key)
+
+      this.$store.dispatch('queryJobList', this)
       // 取消select框焦点
       this.selectActive = ''
     }
