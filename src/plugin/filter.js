@@ -87,7 +87,14 @@ export default {
        * 并将日期为今天，明天，昨天的时间转化成 如‘今天 HH: MM’的形式
        */
       let date = (typeof time === 'number') ? new Date(time) : new Date((time || '').replace(/-/g, '/'))
-      let diff = (((new Date()).getTime() - date.getTime()) / 1000)
+      // 获取当前日期
+      let nowDate = new Date()
+      let tY = nowDate.getFullYear()
+      let tM = nowDate.getMonth() + 1
+      let tD = nowDate.getDate()
+      let nowDay = new Date(tY + '/' + tM + '/' + tD)
+      // 比较当前时间戳与传入日期的时间戳
+      let diff = ((nowDay.getTime() - date.getTime()) / 1000)
       let dayDiff = Math.floor(diff / 86400)
       let isValidDate = Object.prototype.toString.call(date) === '[object Date]' && !isNaN(date.getTime())
 
@@ -101,14 +108,22 @@ export default {
       let day = ('0' + today.getDate()).slice(-2)
       let hour = ('0' + today.getHours()).slice(-2)
       let minute = ('0' + today.getMinutes()).slice(-2)
-      if (isNaN(dayDiff) || dayDiff < 0 || dayDiff > 3) {
+      // 返回数据
+      if (isNaN(dayDiff) || dayDiff <= -1 || dayDiff > 2) {
         return `${month}-${day} ${hour}:${minute}`
       }
-      return dayDiff === 0 && (
-        diff < 86400 && `今天 ${hour}:${minute}`) ||
-        dayDiff < 2 && `昨天 ${hour}:${minute}` ||
-        dayDiff < 3 && `前天 ${hour}:${minute}` ||
-        dayDiff >= 3 && `${month}-${day} ${hour}:${minute}`
+      if (diff <= 0 && dayDiff > -1) {
+        return `今天 ${hour}:${minute}`
+      }
+      if (diff > 0 && dayDiff <= 1) {
+        return `昨天 ${hour}:${minute}`
+      }
+      if (dayDiff > 1 && dayDiff <= 2) {
+        return `前天 ${hour}:${minute}`
+      }
+      if (dayDiff > 2) {
+        return `${month}-${day} ${hour}:${minute}`
+      }
     })
   }
 }
