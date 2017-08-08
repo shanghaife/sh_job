@@ -282,7 +282,7 @@ export default {
         }
       )
 
-      // this.compareWage(key)
+      this.compareWage(key)
 
       this.$store.dispatch('queryJobList', this)
       // 取消select框焦点
