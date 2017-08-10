@@ -18,6 +18,8 @@
     </ul>
     <ul class="order" id="order">
       <li class="wrapper">
+        <item-select :selectorItem="minWage"></item-select>
+        <item-select :selectorItem="maxWage"></item-select>
         <!--<div class="item salary selectUI" :class="{'active': selectActive == 'minWage'}">-->
         <!--<span class="title">最低工资要求（月薪）：</span>-->
         <!--<div class="selectUI-text text" @click.stop="setSelectActive('minWage')"-->
@@ -40,6 +42,7 @@
 </template>
 <script>
   import item from './SelectorItemRadio.vue'
+  import itemSelect from './SelectorItemSelect.vue'
 
   export default {
     name: 'Selector',
@@ -91,11 +94,56 @@
             {text: 'D轮及以上', val: '7'},
             {text: '上市', val: '8'}
           ]
+        },
+        minWage: {
+          title: '最低工资要求（月薪）',
+          keyword: 'minWage',
+          list: [
+            {text: '无要求', val: '0'},
+            {text: '3k', val: '3000'},
+            {text: '5k', val: '5000'},
+            {text: '8k', val: '8000'},
+            {text: '10k', val: '10000'},
+            {text: '15k', val: '15000'},
+            {text: '20k', val: '20000'},
+            {text: '25k', val: '25000'},
+            {text: '30k', val: '30000'},
+            {text: '40k', val: '40000'},
+            {text: '50k', val: '50000'},
+            {text: '60k', val: '60000'},
+            {text: '70k', val: '70000'},
+            {text: '80k', val: '80000'},
+            {text: '90k', val: '90000'},
+            {text: '100k', val: '99999'}
+          ]
+        },
+        maxWage: {
+          title: '最高工资要求（月薪）',
+          keyword: 'maxWage',
+          list: [
+            {text: '无要求', val: '0'},
+            {text: '3k', val: '3000'},
+            {text: '5k', val: '5000'},
+            {text: '8k', val: '8000'},
+            {text: '10k', val: '10000'},
+            {text: '15k', val: '15000'},
+            {text: '20k', val: '20000'},
+            {text: '25k', val: '25000'},
+            {text: '30k', val: '30000'},
+            {text: '40k', val: '40000'},
+            {text: '50k', val: '50000'},
+            {text: '60k', val: '60000'},
+            {text: '70k', val: '70000'},
+            {text: '80k', val: '80000'},
+            {text: '90k', val: '90000'},
+            {text: '100k', val: '99999'}
+          ]
         }
       }
     },
     components: {
-      item
+      item,
+      itemSelect
     }
   }
 </script>
@@ -119,13 +167,15 @@
     position: relative;
     margin-top: 9px;
     background-color: #fafafa;
-    border: 1px solid #ededed
+    // border: 1px solid #ededed
+    padding: 6px 16px;
   }
 
   ul.order .wrapper {
     zoom: 1;
     color: #555;
-    font-size: 14px
+    font-size: 14px;
+    display: flex;
   }
 
   ul.order .wrapper:before,
