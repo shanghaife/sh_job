@@ -1,3 +1,20 @@
+/**
+* Created by 李志升 on 2017/8/10.
+* QQ: 757592499
+* weChat: 757592499
+* 选择器：一行，select
+* 示例：
+<item-select :selectorItem="minWage"></item-select>
+* minWage数据示例：
+* minWage: {
+*   title: '最低工资要求（月薪）',
+*   keyword: 'minWage',
+*   list: [
+*     {text: '无要求', val: ''},
+*     {text: '3k', val: '3000'}
+*   ]
+* }
+*/
 <template>
   <div class="select-wrap">
     <div class="title">{{selectorItem.title}}</div>
@@ -23,14 +40,10 @@ export default {
       value: ''
     }
   },
-  watch: {
-    value () {
-      this.$store.commit('updateSearchCondition', {key: this.selectorItem.keyword, value: String(this.value)})
-    }
-  },
   methods: {
     changeSelect (val) {
-      this.$store.commit('updateSearchCondition', {key: this.selectorItem.keyword, value: String(val)})
+      this.value = val
+      this.$store.commit('updateSearchCondition', {key: this.selectorItem.keyword, value: String(this.value)})
     }
   }
 }
