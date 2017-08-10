@@ -328,7 +328,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .filter-wrapper {
   margin-top: 18px;
   font-size: 14px;
