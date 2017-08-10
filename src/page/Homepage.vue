@@ -6,7 +6,7 @@
     <!-- 搜索组件 -->
     <search></search>
     <!-- 筛选组件 -->
-    <!--<selector></selector>-->
+    <selector></selector>
     <!-- 列表组件 -->
     <listview>
       <listitem v-if="items.length>0" :item="item" :key="item.id" v-for="item in items"></listitem>
@@ -22,7 +22,7 @@
 </template>
 <script>
   import Search from 'component/Search'
-  //  import Selector from 'component/Selector'
+  import Selector from 'component/Selector'
   import Listview from 'component/Listview'
   import Pagination from 'component/Pagination'
   import listitem from 'component/listitem'
@@ -45,7 +45,7 @@
         let result = {}
         let data = state.searchCondition
         Object.keys(data).forEach(key => {
-          if (data[key] !== undefined) {
+          if (data[key] !== undefined && data[key] !== '') {
             result[key] = data[key]
           }
         })
@@ -70,6 +70,8 @@
           throw new Error(`searchCondition has key: "${data.key}" , you can't registry it`)
         }
         state.searchCondition[data.key] = data.value
+        // 2017/08/10 修复了新增属性不会被监视的问题
+        state.searchCondition = Object.assign({}, state.searchCondition)
       },
       removeSearchCondition (state, data) {
         state.searchCondition[data.key] = undefined
@@ -91,7 +93,8 @@
         context.commit('updateSearchResult', {})
         // 防连续请求，加100ms延迟
         setTimeout(() => {
-          component.http.getJobList(context.searchCondition).then(result => {
+          console.log(context.getters.searchCondition)
+          component.http.getJobList(context.getters.searchCondition).then(result => {
             context.commit('updateLoading', false)
             if (result.data.code === '200') {
               context.commit('updateSearchResult', result.data)
@@ -128,7 +131,7 @@
     components: {
       Pagination,
       Search,
-//      Selector,
+      Selector,
       Listview,
       listitem
     },
