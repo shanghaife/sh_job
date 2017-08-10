@@ -147,7 +147,7 @@
       margin: 0 auto;
       overflow: hidden;
       line-height: 56px;
-      background-image: url('/job/static/JS-logo.png');
+      background-image: url(~assets/JS-logo.png);
       background-repeat: no-repeat;
       background-size: contain;
       > img {
