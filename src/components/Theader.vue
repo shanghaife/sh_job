@@ -47,6 +47,7 @@
           </li>
         </ul>
         <p class="fr">
+          <a @click="goMine" v-if="$store.state.user.isLogin">我的发布</a>
           <router-link to='/publish' v-if="$store.state.user.isLogin">发布职位</router-link>
         </p>
       </div>
@@ -76,6 +77,12 @@
       // 切换到移动端首页
       goMobile () {
         this.$router.push('/m')
+      },
+      // 跳转到我的发布页面
+      goMine () {
+        const username = this.$store.state.user.username
+        console.log(username)
+        this.$router.push('/mine/' + username)
       }
     },
     mounted () {
@@ -92,7 +99,6 @@
 </script>
 <style scoped lang="less" type="text/less">
   @import '~common/less/config.less';
-
   .fl {
     float: left;
   }
@@ -179,6 +185,9 @@
         }
       }
     }
+  }
+  a {
+    padding: 0 5px;
   }
 </style>
 
