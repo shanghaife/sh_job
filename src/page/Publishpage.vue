@@ -212,6 +212,25 @@
           description: ''
         }
       }
+    },
+    mounted () {
+      /* 判断当前为修改的职位详情也还是无数据的发布页     add by 鬼谷中妖 */
+      const routePath = isNaN(Number(this.$route.path.replace('/publish/', '')))
+      if (!routePath) {
+        this.http.getJobInfo({id: this.$route.path.replace('/publish/', '')}).then(result => {
+          if (result.data.code === '200') {
+            this.info = result.data.data
+          }
+        })
+      }
+    },
+    watch: {
+      /* 在修改和发布页切换时，检测route path，如果为'/publish' 则清空数据 */
+      $route () {
+        if (this.$route.path === '/publish') {
+          this.clean()
+        }
+      }
     }
   }
 </script>

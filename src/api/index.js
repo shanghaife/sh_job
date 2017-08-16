@@ -21,6 +21,9 @@ let ajax = {
   },
   getVisits (payload) {
     return http.get('/job/getVisits', payload)
+  },
+  getMineJobInfo (payload) {
+    return http.get('/job/getOwnPublishJobList', payload)
   }
 }
 

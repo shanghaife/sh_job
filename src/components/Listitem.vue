@@ -38,7 +38,8 @@
         <span v-for="key in item.keywords" :key="key.id">{{key}}</span>
       </div>
       <div class="li_b_r">
-        <a class="modifyInfo" @click="gotoJobInfo" v-if="$store.state.user.isLogin">修改内容</a>
+        <!-- 在用户发布职位列表中，显示修改内容 -->
+        <a class="modifyInfo" @click="gotoJobModify" v-if="$store.state.user.isLogin && $route.path === '/mine'">修改内容</a>
       </div>
     </div>
   </div>
@@ -222,11 +223,14 @@
     methods: {
       // 跳转到职位详情
       gotoJobInfo () {
-        var url = this.item.id
-        console.log(url)
-        this.$router.push('/detail/' + url)
+        var param = this.item.id
+        console.log(param)
+        this.$router.push('/detail/' + param)
+      },
+      gotoJobModify () {
+        const param = this.item.id
+        this.$router.push('/publish/' + param)
       }
     }
   }
 </script>
-

@@ -60,7 +60,9 @@
         this.http.login(this.user).then(result => {
           if (result.data.code === '200') {
             this.$store.commit('login', result.data)
-            alert(result.data.msg ? result.data.msg : '登录成功')
+            // alert(result.data.msg ? result.data.msg : '登录成功')
+            // 登录成功后跳转到 我发布的职位列表页
+            this.$router.push('/mine')
           } else {
             alert('登录失败。' + result.data.msg)
           }

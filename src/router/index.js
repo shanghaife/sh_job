@@ -52,8 +52,13 @@ export default new Router({
           component: Publishpage
         },
         {
+          name: 'modifypage',
+          path: 'publish/*',
+          component: Publishpage
+        },
+        {
           name: 'minepage',
-          path: 'mine/*',
+          path: 'mine',
           component: Minepage
         }
       ],

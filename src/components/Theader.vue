@@ -80,9 +80,7 @@
       },
       // 跳转到我的发布页面
       goMine () {
-        const username = this.$store.state.user.username
-        console.log(username)
-        this.$router.push('/mine/' + username)
+        this.$router.push('/mine')
       }
     },
     mounted () {
