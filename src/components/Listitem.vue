@@ -37,7 +37,9 @@
       <div class="li_b_l">
         <span v-for="key in item.keywords" :key="key.id">{{key}}</span>
       </div>
-      <div class="li_b_r"></div>
+      <div class="li_b_r">
+        <a class="modifyInfo" @click="gotoJobInfo" v-if="$store.state.user.isLogin">修改内容</a>
+      </div>
     </div>
   </div>
 </template>
@@ -192,6 +194,13 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       word-wrap: normal;
+      .modifyInfo {
+        border: 1px solid #dcdcdc;
+        padding: 4px 6px;
+        border-radius: 7px;
+        font-size: 13px;
+        color: #ff2e2e;
+      }
     }
 
   }
