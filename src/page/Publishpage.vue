@@ -6,6 +6,7 @@
       <div class="job-item">
         <p class="left-part">地区／area</p>
         <input type="text" placeholder="例如:上海市浦东区XX路，小于10个字" v-model="info.area">
+        <input type="hidden" v-model="info.id">
       </div>
       <div class="job-item">
         <p class="left-part">公司名／companyName</p>
@@ -123,6 +124,7 @@
     data () {
       return {
         info: {
+          id: '',
           keywords: '',
           area: '',
           minYear: '0',

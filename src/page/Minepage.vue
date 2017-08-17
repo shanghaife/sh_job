@@ -2,7 +2,7 @@
  * @Author: woden0415.wangdong
  * @Date: 2017-08-15 09:11:13
  * @Last Modified by: woden0415.wangdong
- * @Last Modified time: 2017-08-15 09:45:35
+ * @Last Modified time: 2017-08-17 21:50:20
  * @Description: 显示用户发布的信息列表
 */
 <template>
