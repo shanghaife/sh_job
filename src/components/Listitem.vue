@@ -32,6 +32,7 @@
           {{item.financing | filter_financing}}
         </div>
       </div>
+	  
     </div>
     <div class="list_item_bot">
       <div class="li_b_l">
@@ -138,7 +139,8 @@
         word-wrap: normal;
       }
 
-    }
+	}
+
     .com_logo {
       float: left;
 
