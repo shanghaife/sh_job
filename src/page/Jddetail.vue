@@ -60,7 +60,7 @@
         </div>
       </div>
 	  <div class="contact-content">
-		<contact-by-QQ :qqNumber="''"></contact-by-QQ>
+		<contact-by-QQ :qqNumber="0"></contact-by-QQ>
 	  </div>
     </div>
   </div>

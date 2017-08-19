@@ -2,7 +2,7 @@
  * @Author: zhoupeng zhoupeng1995@live.com
  * @Date: 2017-08-19 14:53:03 
  * @Last Modified by: zhoupeng
- * @Last Modified time: 2017-08-19 16:09:30
+ * @Last Modified time: 2017-08-19 16:29:55
  * @params qqNumber {String or Number} 可选项，如果不传入，这样式为灰色，鼠标悬浮后，为不可点击样式
  * @params text {String} 可选项，自定义框内的文本，默认为‘QQ联系’
  */
@@ -20,7 +20,7 @@ export default {
   },
   props: {
     qqNumber: {
-      type: String,
+      type: Number,
       default: ''
     },
     text: {
@@ -30,7 +30,8 @@ export default {
   },
   methods: {
     openQQWindow () {
-      if (this.qqNumber.length < 5 || this.qqNumber.length > 11) {
+      const qqNumberTest = /^\d{5,11}$/
+      if (!qqNumberTest.test(this.qqNumber)) {
         alert('该预留qq有误，请通过其他方式联系')
         return
       }
@@ -55,7 +56,7 @@ export default {
 		text-align: center;
 		cursor: pointer;
 		transition: all .7s;
-
+		user-select: none;
 
 		&:hover {
 			border: 1px solid rgb(0, 120, 215);
