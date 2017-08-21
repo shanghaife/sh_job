@@ -180,8 +180,12 @@
         if (!this.check()) {
           return
         }
-        var data = {}
+        let data = {}
+        let isCreate = isNaN(Number(this.$route.path.replace('/publish/', '')))
         Object.keys(this.info).forEach(key => {
+          if (key === 'id' && isCreate) {
+            return
+          }
           data[key] = this.info[key]
         })
         this.http.publishJob(data).then(result => {
