@@ -3,6 +3,9 @@
 * QQ: 20004604
 * weChat: qq20004604
 * 移动端首页
+* Updated by 张帅 on 2017/8/18
+* QQ: 3120921953
+* 修改样式表
 */
 <template>
   <div class="head">
@@ -63,14 +66,6 @@
 <style scoped lang="less" type="text/less">
   @import '~common/less/config.less';
 
-  .fl {
-    float: left;
-  }
-
-  .fr {
-    float: right;
-  }
-
   .head {
     width: 100%;
     line-height: 56px;
@@ -79,9 +74,11 @@
       height: 30px;
       background-color: #333;
       .topbar-content {
-        width: 1200px;
+        width: 100%;
         margin: 0 auto;
         overflow: hidden;
+        display: flex;
+        justify-content: space-between;
         > ul {
           line-height: 30px;
           font-size: 14px;
