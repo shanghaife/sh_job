@@ -16,7 +16,7 @@
     <div class="topbar-box">
       <div class="topbar-content">
         <ul class="fl">
-          <li><a>目前不提供登出功能，请清除缓存</a></li>
+          <li><a v-on:click.prevent="doLogout" v-if="$store.state.user.isLogin">登出</a></li>
           <li><a>网站访问量：<em>{{visitTime}}</em></a></li>
         </ul>
         <ul class="fr">
@@ -40,7 +40,7 @@
             </router-link>
           </li>
           <!--<li class="fl">-->
-            <!--<router-link to='/detail' v-bind:class="{'menu-active': ($route.path==='/detail')}">职位详情</router-link>-->
+          <!--<router-link to='/detail' v-bind:class="{'menu-active': ($route.path==='/detail')}">职位详情</router-link>-->
           <!--</li>-->
           <li class="fl">
             <router-link v-show="amILogin" to='/manage'>管理</router-link>
@@ -70,6 +70,15 @@
         // 跳转到登录页面
         this.$router.push('/login')
       },
+      // 登出
+      doLogout () {
+        this.http.logout({}).then(result => {
+          if (result.data.code === '200') {
+            this.$store.commit('logout')
+          }
+          alert(result.data.msg)
+        })
+      },
       // 注册
       doRegister: function (event) {
         alert('目前采用邀请注册，请联系QQ：20004604')
@@ -97,6 +106,7 @@
 </script>
 <style scoped lang="less" type="text/less">
   @import '~common/less/config.less';
+
   .fl {
     float: left;
   }
@@ -184,6 +194,7 @@
       }
     }
   }
+
   a {
     padding: 0 5px;
   }

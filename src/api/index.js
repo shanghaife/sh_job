@@ -16,6 +16,9 @@ let ajax = {
   login (payload) {
     return http.post('/job/login', payload)
   },
+  logout (payload) {
+    return http.post('/job/logout', payload)
+  },
   getJobInfo (payload) {
     return http.get('/job/getJobInfo', payload)
   },

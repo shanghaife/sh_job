@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>接口文档生成工具</title>
+  <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+  <style>
+    #box {
+      padding: 20px;
+      border: 1px solid #333;
+      display: inline-block;
+    }
+
+    #output {
+      width: 800px;
+      height: 600px;
+    }
+
+    label {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+<div id="box">
+  <table>
+    <tbody>
+    <tr>
+      <td>标题：</td>
+      <td><input type="text" id="title"></td>
+    </tr>
+    <tr>
+      <td>说明：</td>
+      <td><input type="text" id="description"></td>
+    </tr>
+    <tr>
+      <td>url：</td>
+      <td><input type="text" id="url"></td>
+    </tr>
+    <tr>
+      <td>请求类型：</td>
+      <td>
+        <input type="radio" class="type" value="get" name="type">get
+        <input type="radio" class="type" value="post" name="type">post
+      </td>
+    </tr>
+    <tr>
+      <td>请求报文：</td>
+      <td>
+        <div id="no-request">无参数</div>
+        <div id="request" style="display: none;"></div>
+        <button id="addRequest">点击添加参数</button>
+      </td>
+    </tr>
+    <tr>
+      <td>返回报文：</td>
+      <td>
+        <div id="no-response">无参数</div>
+        <div id="response" style="display: none;"></div>
+        <button id="addResponse">点击添加参数</button>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<br>
+<button id="toDo">生成</button>
+<br>
+<textarea id="output"></textarea>
+
+<script>
+  $('#addRequest').click(function () {
+    $('#no-request').hide()
+    $('#request').show()
+    var DOM = `<label class="argument">参数名：<input type="text" name="key">　示例值(可不填)：<input type="text" name="value"></label>`
+    $('#request').append($(DOM))
+  })
+
+  $('#addResponse').click(function () {
+    $('#no-response').hide()
+    $('#response').show()
+    var DOM = `<label class="argument">参数名：<input type="text" name="key">　示例值(可不填)：<input type="text" name="value"></label>`
+    $('#response').append($(DOM))
+  })
+
+  $('#toDo').click(function () {
+    var title = $('#title').val()
+    var description = $('#description').val()
+    var date = new Date()
+    var dateText = date.getFullYear() + '.' + (date.getMonth() + 1) + '.' + date.getDate()
+    var url = $('#url').val()
+    var type = $('.type[name=type]:checked').val()
+
+    var requestText = ''
+    Array.from($('#request .argument')).forEach(function (item, index) {
+      var key = $(item).find('[name=key]').val()
+      if (!key) {
+        return
+      }
+      var val = $(item).find('[name=value]').val()
+      if (responseText > 0) {
+        responseText += `
+
+    ${key}: ${val}`
+      } else {
+        responseText += `    ${key}: ${val}`
+      }
+    })
+
+    var responseText = ''
+    Array.from($('#response .argument')).forEach(function (item, index) {
+      var key = $(item).find('[name=key]').val()
+      if (!key) {
+        return
+      }
+      var val = $(item).find('[name=value]').val()
+      if (responseText > 0) {
+        responseText += `
+
+    ${key}: ${val}`
+      } else {
+        responseText += `    ${key}: ${val}`
+      }
+    })
+
+    var DOM = `<h3>${title}</h3>
+
+${description}：
+
+（请求）${dateText}
+\`\`\`
+type: ${type}
+url: ${url}
+data:
+{
+${requestText.length > 0 ? requestText : '    无数据'}
+}
+\`\`\`
+
+
+（返回值）${dateText}
+\`\`\`
+{
+${responseText.length > 0 ? responseText : '    无数据'}
+}
+\`\`\``
+    $('#output').val(DOM)
+  })
+</script>
+</body>
+</html>
