@@ -127,7 +127,6 @@
       color: #555;
       display: inline-block;
       border: 1px solid #ededed;
-      height: 21px;
       line-height: 21px;
       padding: 3px 10px;
       margin: 0 5px;

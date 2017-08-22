@@ -17,6 +17,7 @@
       <div class="topbar-content">
         <ul class="fl">
           <li><a>目前不提供登出功能，请清除缓存</a></li>
+          <li><a>网站访问量：<em>{{visitTime}}</em></a></li>
         </ul>
         <ul class="fr">
           <template v-if="!$store.state.user.isLogin">
@@ -46,6 +47,7 @@
           </li>
         </ul>
         <p class="fr">
+          <a @click="goMine" v-if="$store.state.user.isLogin">我的发布</a>
           <router-link to='/publish' v-if="$store.state.user.isLogin">发布职位</router-link>
         </p>
       </div>
@@ -58,6 +60,7 @@
     data () {
       return {
         amILogin: false,
+        visitTime: 0,
         developer: '鬼谷中妖 woden0415@163.com'
       }
     },
@@ -74,13 +77,26 @@
       // 切换到移动端首页
       goMobile () {
         this.$router.push('/m')
+      },
+      // 跳转到我的发布页面
+      goMine () {
+        this.$router.push('/mine')
       }
+    },
+    mounted () {
+      // 显示网站访问量
+      this.http.getVisits().then(result => {
+        if (result.data.code === 200) {
+          this.visitTime = result.data.account
+        } else {
+          this.visitTime = result.data.error
+        }
+      })
     }
   }
 </script>
 <style scoped lang="less" type="text/less">
   @import '~common/less/config.less';
-
   .fl {
     float: left;
   }
@@ -135,7 +151,7 @@
       margin: 0 auto;
       overflow: hidden;
       line-height: 56px;
-      background-image: url('../assets/JS-logo.png');
+      background-image: url(~assets/JS-logo.png);
       background-repeat: no-repeat;
       background-size: contain;
       > img {
@@ -167,6 +183,9 @@
         }
       }
     }
+  }
+  a {
+    padding: 0 5px;
   }
 </style>
 

@@ -124,7 +124,7 @@
       span {
         display: inline-block;
         max-width: 84px;
-        height: 20px;
+        height: 24px;
         padding: 0 5px;
         font-size: 12px;
         line-height: 20px;

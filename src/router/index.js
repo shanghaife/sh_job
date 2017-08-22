@@ -8,6 +8,7 @@ import HomePage from 'page/Homepage'
 import Landpage from 'page/Landpage'
 import Jddetail from 'page/Jddetail'
 import Publishpage from 'page/Publishpage'
+import Minepage from 'page/Minepage'
 // 移动端首页
 const mIndex = resolve => require(['../components/mobile/Index.vue'], resolve)
 // 移动端登录
@@ -49,6 +50,16 @@ export default new Router({
           name: 'publishpage',
           path: 'publish',
           component: Publishpage
+        },
+        {
+          name: 'modifypage',
+          path: 'publish/*',
+          component: Publishpage
+        },
+        {
+          name: 'minepage',
+          path: 'mine',
+          component: Minepage
         }
       ],
       beforeEnter (to, from, next) {
