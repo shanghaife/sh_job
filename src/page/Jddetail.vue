@@ -59,10 +59,14 @@
           <button @click="copyToClipBoard">点击可以复制发送本广告到群里</button>
         </div>
       </div>
+	  <div class="contact-content">
+		<contact-by-QQ :qqNumber="0"></contact-by-QQ>
+	  </div>
     </div>
   </div>
 </template>
 <script>
+  import contactByQQ from '@/components/contactByQQ'
   export default {
     name: 'jddetail',
     created () {
@@ -144,6 +148,9 @@
       copyToClipBoard () {
         this.$copy.copy(this.forAd)
       }
+    },
+    components: {
+      contactByQQ
     }
   }
 </script>
