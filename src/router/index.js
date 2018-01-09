@@ -9,6 +9,7 @@ import Landpage from 'page/Landpage'
 import Jddetail from 'page/Jddetail'
 import Publishpage from 'page/Publishpage'
 import Minepage from 'page/Minepage'
+import Performance from '../page/performance'
 // 移动端首页
 const mIndex = resolve => require(['../components/mobile/Index.vue'], resolve)
 // 移动端登录
@@ -95,6 +96,11 @@ export default new Router({
       name: 'MobileLogin',
       path: '/m/login',
       component: mLogin
+    },
+    {
+      name: 'performance',
+      path: '/performance',
+      component: Performance
     },
     {
       path: '*',

@@ -20,6 +20,7 @@
           <li><a>网站访问量：<em>{{visitTime}}</em></a></li>
         </ul>
         <ul class="fr">
+          <li><a @click="gotoPerformance">查看性能统计数据</a></li>
           <template v-if="!$store.state.user.isLogin">
             <li><a v-on:click.prevent="doLogin">登录</a></li>
             <li><a v-on:click.prevent="doRegister">邀请注册</a></li>
@@ -90,6 +91,9 @@
       // 跳转到我的发布页面
       goMine () {
         this.$router.push('/mine')
+      },
+      gotoPerformance () {
+        this.$router.push('/performance')
       }
     },
     mounted () {

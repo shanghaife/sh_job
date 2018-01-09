@@ -27,7 +27,7 @@ let user = {
   },
   actions: {
     tryLogin (context) {
-      http.post('/job/login').then(result => {
+      http.post('/login').then(result => {
         if (result.data.code === '200') {
           context.commit('login', result.data)
         }

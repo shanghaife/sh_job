@@ -5,28 +5,29 @@ import http from '@/config/http'
  * this.http.getJobList({}).then(function(){})
  * @type {{getJobList: (function(*=)), publishJob: (function(*=))}}
  */
+let rootUrl = ''
 
 let ajax = {
   getJobList (payload) {
-    return http.get('/job/getJobList', payload)
+    return http.get(`${rootUrl}/getJobList`, payload)
   },
   publishJob (payload) {
-    return http.post('/job/publishJob', payload)
+    return http.post(`${rootUrl}/publishJob`, payload)
   },
   login (payload) {
-    return http.post('/job/login', payload)
+    return http.post(`${rootUrl}/login`, payload)
   },
   logout (payload) {
-    return http.post('/job/logout', payload)
+    return http.post(`${rootUrl}/logout`, payload)
   },
   getJobInfo (payload) {
-    return http.get('/job/getJobInfo', payload)
+    return http.get(`${rootUrl}/getJobInfo`, payload)
   },
   getVisits (payload) {
-    return http.get('/job/getVisits', payload)
+    return http.get(`${rootUrl}/getVisits`, payload)
   },
   getMineJobInfo (payload) {
-    return http.get('/job/getOwnPublishJobList', payload)
+    return http.get(`${rootUrl}/getOwnPublishJobList`, payload)
   }
 }
 
